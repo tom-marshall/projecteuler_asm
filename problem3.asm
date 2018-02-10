@@ -2,10 +2,8 @@
 ; Problem 3: Largest prime factor
 ;
 ; The prime factors of 13195 are 5, 7, 13 and 29.
-;
 ; What is the largest prime factor of the number 600851475143?
 ;
-; whoaaaa, modulooooooo :P
 
 
 section .data
@@ -32,7 +30,7 @@ _start:
 
     jl .loop            ; if less, test the next higher number
 
-    nop                 ; nothing to see here...
+    nop                 ; for gdb
 
 
 ;; Square root is stored in rcx
@@ -42,23 +40,24 @@ _start:
     mov rcx, 1          ; clear rx to count up
 
 .primeloop
-    mov rax, rbx
-    xor edx, edx
+    mov rax, rbx        ; reset rax from div operation
+    xor edx, edx        ; clear edx for division
 
-    inc rcx
-    div rcx
+    inc rcx             ; text next higher number
+    div rcx             ; divide
 
-    test rdx, rdx
-    cmovz rbx, rax 
+    test rdx, rdx       ; text remainder for 0
+    cmovz rbx, rax      ; if remainder is 0, we found a factor,
+                        ; so the product is the new test 
 
-    cmp rbx, 1
+    cmp rbx, 1          ; if our product is 1, we're done
     je .end
 
-    cmp rcx, r8
+    cmp rcx, r8         ; next iteration if we're not to the root of the
+                        ; original number
     jl .primeloop
 
 .end
-    mov [lcfp], rcx
+    mov [lcfp], rcx     ; store the greatest prime factor
 
-    nop
-
+    nop                 ; for gdb
