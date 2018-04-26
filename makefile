@@ -1,4 +1,4 @@
-phony: 4
+phony: 5
 
 clean:
 	rm *.o *.lst problem1 problem2 problem3
@@ -25,4 +25,7 @@ clean:
 5:
 	yasm -f elf64 -g dwarf2 -l problem5.lst problem5.asm
 	gcc problem5.o -o problem5
+
+5c:
+	gcc -std=c99 -O2 -g problem5.c -o problem5
 
