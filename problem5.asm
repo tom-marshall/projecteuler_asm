@@ -14,7 +14,7 @@
 ;
 
 
-%define RANGETO 17
+%define RANGETO 20
 
 %macro test_and_store 1
     xor edx, edx
